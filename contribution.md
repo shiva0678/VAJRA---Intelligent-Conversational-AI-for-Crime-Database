@@ -57,16 +57,4 @@
 
 ---
 
-## 🔀 Pull Request Workflow for Forked Project
 
-1. **Check Out Feature Branch**:
-   ```bash
-   git checkout -b fix/ui-responsiveness-all-devices
-   ```
-2. **Commit Changes**:
-   ```bash
-   git add .
-   git commit -m "Fix issue: UI responsiveness for all type of devices (320px-1024px)"
-   ```
-3. **Push & Open PR**:
-   Push to your fork and submit a Pull Request to the upstream repository describing these UI responsiveness enhancements.
