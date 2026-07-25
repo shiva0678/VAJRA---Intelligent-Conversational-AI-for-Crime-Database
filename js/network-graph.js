@@ -77,6 +77,8 @@ function initGraph(){
       <div class="nd-name">${d.id}</div>
       <span class="nd-tag" style="color:${typeColor[d.type]};border:1px solid ${typeColor[d.type]}44;background:${typeColor[d.type]}18;">${d.type.toUpperCase()}</span>
       <div>${d.tag}</div>`;
+    const panel = document.querySelector('.node-panel');
+    if(panel && window.innerWidth <= 768) panel.classList.add('mobile-open');
     logAudit('Network node inspected', d.id, 'info');
   });
 
@@ -85,7 +87,47 @@ function initGraph(){
     node.attr('transform', d=>`translate(${d.x},${d.y})`);
   });
 }
+
+window.addEventListener('resize', ()=>{
+  if(graphInit){
+    const svg = d3.select('#networkSvg');
+    const container = document.getElementById('networkSvg')?.parentElement;
+    if(container){
+      const width = container.clientWidth, height = container.clientHeight;
+      if(width > 0 && height > 0){
+        svg.attr('viewBox', [0,0,width,height]);
+        if(simulation){ simulation.force('center', d3.forceCenter(width/2, height/2)).alpha(0.2).restart(); }
+      }
+    }
+  }
+});
+
 function resetGraph(){
   if(simulation){ simulation.alpha(1).restart(); }
   logAudit('Network layout reset', 'Force simulation re-initialized', 'info');
+}
+
+function toggleFullscreenGraph(){
+  const wrap = document.querySelector('.network-wrap');
+  const btnText = document.getElementById('btnFullscreenText');
+  if(!wrap) return;
+  const isFS = wrap.classList.toggle('fullscreen');
+  if(btnText){
+    btnText.textContent = isFS 
+      ? (typeof currentLang!=='undefined' && currentLang==='kn' ? 'ಮುಚ್ಚಿ' : 'Exit Fullscreen') 
+      : (typeof currentLang!=='undefined' && currentLang==='kn' ? 'ಪೂರ್ಣ ಪರದೆ' : 'Fullscreen');
+  }
+  setTimeout(()=>{
+    const svg = d3.select('#networkSvg');
+    const w = wrap.clientWidth, h = wrap.clientHeight;
+    if(w > 0 && h > 0){
+      svg.attr('viewBox', [0,0,w,h]);
+      if(simulation){ simulation.force('center', d3.forceCenter(w/2, h/2)).alpha(0.3).restart(); }
+    }
+  }, 100);
+}
+
+function toggleNodePanel(){
+  const panel = document.querySelector('.node-panel');
+  if(panel) panel.classList.toggle('mobile-open');
 }

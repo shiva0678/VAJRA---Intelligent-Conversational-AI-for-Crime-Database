@@ -37,12 +37,19 @@ function initTrends(){
     </div>`).join('');
 }
 function chartOpts(showLegend){
+  const isSmall = window.innerWidth <= 480;
   return {
     responsive:true, maintainAspectRatio:false,
-    plugins:{ legend:{ display:showLegend, labels:{ color:'#9FADC7', font:{size:11}, boxWidth:10 } } },
+    plugins:{ 
+      legend:{ 
+        display:showLegend, 
+        position: isSmall ? 'bottom' : 'top',
+        labels:{ color:'#9FADC7', font:{size: isSmall ? 9.5 : 11}, boxWidth: isSmall ? 8 : 10, padding: isSmall ? 6 : 10 } 
+      } 
+    },
     scales:{
-      x:{ ticks:{ color:'#6B7A9A', font:{size:10} }, grid:{ color:'#1B2740' } },
-      y:{ ticks:{ color:'#6B7A9A', font:{size:10} }, grid:{ color:'#1B2740' } }
+      x:{ ticks:{ color:'#6B7A9A', font:{size: isSmall ? 8.5 : 10}, maxRotation: 45 }, grid:{ color:'#1B2740' } },
+      y:{ ticks:{ color:'#6B7A9A', font:{size: isSmall ? 8.5 : 10} }, grid:{ color:'#1B2740' } }
     }
   };
 }

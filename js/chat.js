@@ -274,3 +274,8 @@ function seedGreeting(){
     : `ನಮಸ್ಕಾರ. ನಾನು <b>ವಜ್ರ</b>, ನಿಮ್ಮ SCRB ಅಪರಾಧ ಗುಪ್ತಚರ ಸಹಾಯಕ. ನೀವು ಏನನ್ನು ತನಿಖೆ ಮಾಡಲು ಬಯಸುತ್ತೀರಿ?`;
   addMessage('bot', g);
 }
+
+function toggleXAIPanel(){
+  const xai = document.querySelector('.xai-col');
+  if(xai) xai.classList.toggle('mobile-open');
+}

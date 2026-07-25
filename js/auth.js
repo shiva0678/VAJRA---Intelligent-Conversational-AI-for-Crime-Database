@@ -30,7 +30,21 @@ function setRole(role){
 }
 
 /* ================= NAV ================= */
+function toggleMobileMenu(){
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.getElementById('navOverlay');
+  if(sidebar) sidebar.classList.toggle('open');
+  if(overlay) overlay.classList.toggle('open');
+}
+function closeMobileMenu(){
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.getElementById('navOverlay');
+  if(sidebar) sidebar.classList.remove('open');
+  if(overlay) overlay.classList.remove('open');
+}
+
 function goto(view){
+  closeMobileMenu();
   if(!ROLE_ACCESS[currentRole].includes(view)){
     flashDenied(view);
     return;
@@ -45,7 +59,7 @@ function goto(view){
 }
 function flashDenied(view){
   const item = document.querySelector(`.nav-item[data-view="${view}"]`);
-  item.style.borderColor = 'var(--red)';
+  if(item) item.style.borderColor = 'var(--red)';
   logAudit('Access denied', `${currentRole} attempted to access ${view} (insufficient permissions)`, 'denied');
-  setTimeout(()=>{ item.style.borderColor=''; }, 700);
+  setTimeout(()=>{ if(item) item.style.borderColor=''; }, 700);
 }
