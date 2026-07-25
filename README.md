@@ -1,0 +1,2 @@
+# VAJRA---Intelligent-Conversational-AI-for-Crime-Database
+VAJRA is a conversational AI prototype for law enforcement that lets investigators query crime data in English and Kannada, explore criminal networks, analyze trends, identify hotspots, and receive predictive alerts with explainable AI and audit trails. It uses a simulated dataset for demonstration only and is not connected to any live database.
